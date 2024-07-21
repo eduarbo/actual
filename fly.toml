@@ -11,7 +11,7 @@ primary_region = 'qro'
   auto_rollback = true
 
 [build]
-  image = 'eduarbo/actual-server:dev'
+  image = 'eduarbo/actual-server:latest'
 
 [env]
   PORT = '5006'
