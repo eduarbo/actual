@@ -1,0 +1,26 @@
+name: Build and Deploy Dev
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Fly CLI
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          echo "$HOME/.fly/bin" >> $GITHUB_PATH
+
+      - name: Login to Fly
+        run: flyctl auth token --token ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Deploy to Dev
+        if: github.ref == 'refs/heads/master'
+        run: |
+          flyctl deploy --config fly.toml --remote-only --image eduarbo/actual-server:${{ github.ref_name }}-${{ github.sha }}
