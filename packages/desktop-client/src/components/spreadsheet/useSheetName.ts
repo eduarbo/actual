@@ -17,25 +17,26 @@ function unresolveName(name) {
 }
 
 export function useSheetName(binding: Binding) {
-  if (!binding) {
-    throw new Error('Sheet binding is required');
-  }
-
   const isStringBinding = typeof binding === 'string';
 
-  let bindingName = isStringBinding ? binding : binding.name;
+  let bindingName = isStringBinding ? binding : binding?.name;
 
   if (global.IS_TESTING && !isStringBinding && !bindingName) {
-    bindingName = binding.value.toString();
+    bindingName = binding?.value?.toString();
   }
 
-  if (bindingName == null) {
+  if (binding && bindingName == null) {
     throw new Error('Binding name is now required');
   }
 
   // Get the current sheet name, and unresolve the binding name if
   // necessary (you might pass a fully resolved name like foo!name)
   let sheetName = useContext(NamespaceContext) || '__global';
+
+  if (!binding) {
+    return;
+  }
+
   const unresolved = unresolveName(bindingName);
   if (unresolved.sheet) {
     sheetName = unresolved.sheet;

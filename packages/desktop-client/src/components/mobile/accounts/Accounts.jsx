@@ -132,13 +132,15 @@ function AccountCard({
             </TextOneLine>
           </View>
         </View>
-        <CellValue
-          binding={getBalanceQuery(account)}
-          type="financial"
-          style={{ fontSize: 16, color: 'inherit' }}
-          getStyle={makeAmountFullStyle}
-          data-testid="account-balance"
-        />
+        {getBalanceQuery ? (
+          <CellValue
+            binding={getBalanceQuery(account)}
+            type="financial"
+            style={{ fontSize: 16, color: 'inherit' }}
+            getStyle={makeAmountFullStyle}
+            data-testid="account-balance"
+          />
+        ) : null}
       </Button>
     </View>
   );
@@ -204,8 +206,20 @@ function AccountList({
       {accounts.length === 0 && <EmptyMessage />}
       <PullToRefresh onRefresh={onSync}>
         <View style={{ margin: 10 }}>
+          <AccountCard
+            account={{ id: 'all', name: 'All Accounts' }}
+            key="all"
+            updated={updatedAccounts?.length}
+            pending={syncingAccountIds?.length}
+            failed={failedAccounts?.size}
+            onSelect={onSelectAccount}
+          />
           {budgetedAccounts.length > 0 && (
-            <AccountHeader name="For Budget" amount={getOnBudgetBalance()} />
+            <AccountHeader
+              name="For Budget"
+              amount={getOnBudgetBalance()}
+              style={{ marginTop: 30 }}
+            />
           )}
           {budgetedAccounts.map(acct => (
             <AccountCard

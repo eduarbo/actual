@@ -99,33 +99,38 @@ export function TransactionListWithBalances({
               title="Cleared"
               style={{ textAlign: 'center', fontSize: 12 }}
             />
-            <CellValue
-              binding={balanceCleared}
-              type="financial"
-              style={{
-                fontSize: 12,
-                textAlign: 'center',
-                fontWeight: '500',
-              }}
-              data-testid="transactions-balance-cleared"
-            />
+            {balanceCleared ? (
+              <CellValue
+                binding={balanceCleared}
+                type="financial"
+                style={{
+                  fontSize: 12,
+                  textAlign: 'center',
+                  fontWeight: '500',
+                }}
+                data-testid="transactions-balance-cleared"
+              />
+            ) : null}
           </View>
-          <View style={{ flexBasis: '33%' }}>
-            <Label title="Balance" style={{ textAlign: 'center' }} />
-            <CellValue
-              binding={balance}
-              type="financial"
-              style={{
-                fontSize: 18,
-                textAlign: 'center',
-                fontWeight: '500',
-              }}
-              getStyle={value => ({
-                color: value < 0 ? theme.errorText : theme.pillTextHighlighted,
-              })}
-              data-testid="transactions-balance"
-            />
-          </View>
+          {balance ? (
+            <View style={{ flexBasis: '33%' }}>
+              <Label title="Balance" style={{ textAlign: 'center' }} />
+              <CellValue
+                binding={balance}
+                type="financial"
+                style={{
+                  fontSize: 18,
+                  textAlign: 'center',
+                  fontWeight: '500',
+                }}
+                getStyle={value => ({
+                  color:
+                    value < 0 ? theme.errorText : theme.pillTextHighlighted,
+                })}
+                data-testid="transactions-balance"
+              />
+            </View>
+          ) : null}
           <View
             style={{
               display: !unclearedAmount ? 'none' : undefined,
@@ -136,16 +141,18 @@ export function TransactionListWithBalances({
               title="Uncleared"
               style={{ textAlign: 'center', fontSize: 12 }}
             />
-            <CellValue
-              binding={balanceUncleared}
-              type="financial"
-              style={{
-                fontSize: 12,
-                textAlign: 'center',
-                fontWeight: '500',
-              }}
-              data-testid="transactions-balance-uncleared"
-            />
+            {balanceUncleared ? (
+              <CellValue
+                binding={balanceUncleared}
+                type="financial"
+                style={{
+                  fontSize: 12,
+                  textAlign: 'center',
+                  fontWeight: '500',
+                }}
+                data-testid="transactions-balance-uncleared"
+              />
+            ) : null}
           </View>
         </View>
         <TransactionSearchInput
