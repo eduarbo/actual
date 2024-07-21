@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for actual-wispy-leaf-1457 on 2024-07-18T22:54:21-06:00
+# fly.toml app configuration file generated for eduarbo-actual-budget-dev on 2024-07-21T03:11:25-06:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'actual-wispy-leaf-1457'
+app = 'eduarbo-actual-budget-dev'
 primary_region = 'qro'
 
 [experimental]
@@ -11,7 +11,7 @@ primary_region = 'qro'
   auto_rollback = true
 
 [build]
-  image = 'eduarbo/actual-server:latest'
+  image = 'actualbudget/actual-server:latest'
 
 [env]
   PORT = '5006'
@@ -49,3 +49,4 @@ primary_region = 'qro'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
+  size = 'shared-cpu-1x'
