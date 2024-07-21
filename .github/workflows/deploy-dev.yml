@@ -3,7 +3,7 @@ name: Build and Deploy Dev
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
   deploy:
@@ -21,6 +21,5 @@ jobs:
         run: flyctl auth token --token ${{ secrets.FLY_API_TOKEN }}
 
       - name: Deploy to Dev
-        if: github.ref == 'refs/heads/master'
         run: |
           flyctl deploy --config fly.toml --remote-only --image eduarbo/actual-server:${{ github.ref_name }}-${{ github.sha }}
