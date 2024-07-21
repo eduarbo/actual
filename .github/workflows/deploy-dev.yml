@@ -8,6 +8,7 @@ on:
       - 'packages/**'
       - 'package.json'
       - 'fly.toml'
+      - '.github/workflows/deploy-dev.yml'
 
 jobs:
   deploy:
