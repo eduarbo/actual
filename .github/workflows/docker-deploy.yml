@@ -37,8 +37,8 @@ jobs:
           push: true
           tags: eduarbo/actual-server:${{ env.BRANCH_NAME }}-${{ github.sha }}
 
-      - name: Build and push latest tag on master
-        if: github.ref == 'refs/heads/master'
+      - name: Build and push latest tag on dev
+        if: github.ref == 'refs/heads/dev'
         uses: docker/build-push-action@v6
         with:
           context: .
