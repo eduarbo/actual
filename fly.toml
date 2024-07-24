@@ -7,14 +7,14 @@ app = 'eduarbo-actual-budget-dev'
 primary_region = 'qro'
 
 [experimental]
-  cmd = ['node', '--max-old-space-size=180', 'app.js']
+  # cmd = ['node', '--max-old-space-size=180', 'app.js']
   auto_rollback = true
 
 [build]
   image = 'actualbudget/actual-server:latest'
 
 [env]
-  PORT = '5006'
+  PORT = '3001'
   TINI_SUBREAPER = '1'
 
 [[mounts]]
@@ -23,8 +23,8 @@ primary_region = 'qro'
 
 [[services]]
   protocol = 'tcp'
-  internal_port = 5006
-  processes = ['app']
+  internal_port = 3001
+  # processes = ['app']
 
   [[services.ports]]
     port = 80
