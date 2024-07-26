@@ -1,51 +1,23 @@
-# fly.toml app configuration file generated for eduarbo-actual-budget-dev on 2024-07-21T03:11:25-06:00
+# fly.toml app configuration file generated for actual-nameless-forest-4991 on 2024-07-23T20:32:53-06:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'eduarbo-actual-budget-dev'
-primary_region = 'qro'
-
-[experimental]
-  # cmd = ['node', '--max-old-space-size=180', 'app.js']
-  auto_rollback = true
+app = 'actual-nameless-forest-4991'
+primary_region = 'gdl'
 
 [build]
-  image = 'actualbudget/actual-server:latest'
 
-[env]
-  PORT = '3001'
-  TINI_SUBREAPER = '1'
-
-[[mounts]]
-  source = 'actual_data'
-  destination = '/data'
-
-[[services]]
-  protocol = 'tcp'
-  internal_port = 3001
-  # processes = ['app']
-
-  [[services.ports]]
-    port = 80
-    handlers = ['http']
-    force_https = true
-
-  [[services.ports]]
-    port = 443
-    handlers = ['tls', 'http']
-
-  [services.concurrency]
-    type = 'connections'
-    hard_limit = 25
-    soft_limit = 20
-
-  [[services.tcp_checks]]
-    interval = '15s'
-    timeout = '2s'
-    grace_period = '10s'
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
 [[vm]]
+  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
