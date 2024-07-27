@@ -28,10 +28,10 @@ export function Account() {
 
   useSetThemeColor(theme.mobileViewTheme);
 
-  const account = useAccount(accountId);
+  let account = useAccount(accountId);
 
-  if (!account) {
-    return null;
+  if (accountId === 'all') {
+    account = { name: 'All Accounts' };
   }
 
   if (
@@ -53,6 +53,10 @@ export function Account() {
         </Button>
       </View>
     );
+  }
+
+  if (!account) {
+    return null;
   }
 
   return (

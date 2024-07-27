@@ -8,7 +8,7 @@ import { useSheetName } from './useSheetName';
 import { type Binding } from '.';
 
 export function useSheetValue(binding: Binding, onChange?: (result) => void) {
-  const { sheetName, fullSheetName } = useSheetName(binding);
+  const { sheetName, fullSheetName } = useSheetName(binding) || {};
 
   const bindingObj =
     typeof binding === 'string' ? { name: binding, value: null } : binding;
@@ -16,8 +16,8 @@ export function useSheetValue(binding: Binding, onChange?: (result) => void) {
   const spreadsheet = useSpreadsheet();
   const [result, setResult] = useState({
     name: fullSheetName,
-    value: bindingObj.value === undefined ? null : bindingObj.value,
-    query: bindingObj.query,
+    value: bindingObj?.value === undefined ? null : bindingObj.value,
+    query: bindingObj?.query,
   });
   const latestOnChange = useRef(onChange);
   const latestValue = useRef(result.value);
@@ -28,6 +28,8 @@ export function useSheetValue(binding: Binding, onChange?: (result) => void) {
   });
 
   useLayoutEffect(() => {
+    if (!binding) return;
+
     if (bindingObj.query) {
       spreadsheet.createQuery(sheetName, bindingObj.name, bindingObj.query);
     }
@@ -41,7 +43,7 @@ export function useSheetValue(binding: Binding, onChange?: (result) => void) {
         setResult(newResult);
       }
     });
-  }, [sheetName, bindingObj.name]);
+  }, [sheetName, bindingObj?.name]);
 
   return result.value;
 }

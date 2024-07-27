@@ -4,6 +4,8 @@ import { useLocalPref } from '../../hooks/useLocalPref';
 import { type CSSProperties, theme, styles } from '../../style';
 import { Menu } from '../common/Menu';
 import { Modal, ModalCloseButton, ModalHeader } from '../common/Modal2';
+import { Text } from '../common/Text';
+import { useServerVersion } from '../ServerContext';
 
 type BudgetPageMenuModalProps = ComponentPropsWithoutRef<typeof BudgetPageMenu>;
 
@@ -55,6 +57,7 @@ function BudgetPageMenu({
   ...props
 }: BudgetPageMenuProps) {
   const [showHiddenCategories] = useLocalPref('budget.showHiddenCategories');
+  const version = useServerVersion();
 
   const onMenuSelect = (name: string) => {
     switch (name) {
@@ -93,6 +96,19 @@ function BudgetPageMenu({
           text: 'Switch budget file',
         },
       ]}
+      footer={
+        <Text
+          style={{
+            color: theme.menuItemTextHeader,
+            fontSize: 10,
+            lineHeight: '1em',
+            marginTop: 15,
+            textAlign: 'right',
+          }}
+        >
+          App: v{window.Actual?.ACTUAL_VERSION} | Server: {version}
+        </Text>
+      }
     />
   );
 }
