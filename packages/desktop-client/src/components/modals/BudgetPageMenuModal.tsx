@@ -56,8 +56,8 @@ function BudgetPageMenu({
   onSwitchBudgetFile,
   ...props
 }: BudgetPageMenuProps) {
-  const version = useServerVersion();
   const [showHiddenCategories] = useLocalPref('budget.showHiddenCategories');
+  const version = useServerVersion();
 
   const onMenuSelect = (name: string) => {
     switch (name) {
