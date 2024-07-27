@@ -154,12 +154,15 @@ function TransactionListWithPreviews({ account }) {
   const navigate = useNavigate();
 
   const onRefresh = async () => {
-    await dispatch(syncAndDownload(account.id));
+    await dispatch(syncAndDownload(account ? account.id : undefined));
   };
 
   const makeRootQuery = useCallback(
-    () => queries.makeTransactionsQuery(account.id).options({ splits: 'none' }),
-    [account.id],
+    () =>
+      queries
+        .makeTransactionsQuery(account ? account.id : undefined)
+        .options({ splits: 'none' }),
+    [account],
   );
 
   const paged = useRef(null);
@@ -205,9 +208,9 @@ function TransactionListWithPreviews({ account }) {
     });
 
     fetchTransactions();
-    dispatch(markAccountRead(account.id));
+    dispatch(markAccountRead(account ? account.id : undefined));
     return () => unlisten();
-  }, [account.id, dispatch, fetchTransactions]);
+  }, [account, dispatch, fetchTransactions]);
 
   const updateSearchQuery = useDebounceCallback(
     useCallback(
@@ -261,9 +264,10 @@ function TransactionListWithPreviews({ account }) {
     paged.current?.fetchNext();
   };
 
-  const balance = queries.accountBalance(account);
-  const balanceCleared = queries.accountBalanceCleared(account);
-  const balanceUncleared = queries.accountBalanceUncleared(account);
+  const balance = account.id && queries.accountBalance(account);
+  const balanceCleared = account.id && queries.accountBalanceCleared(account);
+  const balanceUncleared =
+    account.id && queries.accountBalanceUncleared(account);
 
   return (
     <TransactionListWithBalances
