@@ -259,6 +259,7 @@ export const BudgetCategories = memo(
                   onEditName={onEditName}
                   onEditMonth={onEditMonth}
                   onSave={_onSaveCategory}
+                  onSaveGroup={_onSaveGroup}
                   onDelete={onDeleteCategory}
                   onDragChange={onDragChange}
                   onReorder={onReorderCategory}

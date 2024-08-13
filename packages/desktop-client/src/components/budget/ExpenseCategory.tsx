@@ -20,6 +20,7 @@ import { Row } from '../table';
 
 import { RenderMonths } from './RenderMonths';
 import { SidebarCategory } from './SidebarCategory';
+import type { SidebarGroup } from './SidebarGroup';
 
 type ExpenseCategoryProps = {
   cat: CategoryEntity;
@@ -30,6 +31,7 @@ type ExpenseCategoryProps = {
   onEditName?: ComponentProps<typeof SidebarCategory>['onEditName'];
   onEditMonth?: (id: string, month: string) => void;
   onSave?: ComponentProps<typeof SidebarCategory>['onSave'];
+  onSaveGroup?: ComponentProps<typeof SidebarGroup>['onSave'];
   onDelete?: ComponentProps<typeof SidebarCategory>['onDelete'];
   onDragChange: OnDragChangeCallback<CategoryEntity>;
   onBudgetAction: (month: number, action: string, arg: unknown) => void;
@@ -46,6 +48,7 @@ export function ExpenseCategory({
   onEditName,
   onEditMonth,
   onSave,
+  onSaveGroup,
   onDelete,
   onBudgetAction,
   onShowActivity,
@@ -96,6 +99,7 @@ export function ExpenseCategory({
           }
           onEditName={onEditName}
           onSave={onSave}
+          onSaveGroup={onSaveGroup}
           onDelete={onDelete}
         />
 

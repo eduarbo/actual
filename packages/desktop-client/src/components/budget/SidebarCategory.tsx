@@ -27,6 +27,7 @@ type SidebarCategoryProps = {
   isLast?: boolean;
   onEditName: (id: string) => void;
   onSave: (category: CategoryEntity) => void;
+  onSaveGroup?: (group: object) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
   onHideNewCategory?: () => void;
 };
@@ -42,6 +43,7 @@ export function SidebarCategory({
   isLast,
   onEditName,
   onSave,
+  onSaveGroup,
   onDelete,
   onHideNewCategory,
 }: SidebarCategoryProps) {
@@ -99,15 +101,19 @@ export function SidebarCategory({
               } else if (type === 'delete') {
                 onDelete(category.id);
               } else if (type === 'toggle-visibility') {
+                if (categoryGroup.hidden && category.hidden) {
+                  onSaveGroup({ ...categoryGroup, hidden: false });
+                }
                 onSave({ ...category, hidden: !category.hidden });
               }
               setMenuOpen(false);
             }}
             items={[
               { name: 'rename', text: 'Rename' },
-              !categoryGroup?.hidden && {
+              {
                 name: 'toggle-visibility',
-                text: category.hidden ? 'Show' : 'Hide',
+                text:
+                  categoryGroup?.hidden || category.hidden ? 'Show' : 'Hide',
               },
               { name: 'delete', text: 'Delete' },
             ]}
