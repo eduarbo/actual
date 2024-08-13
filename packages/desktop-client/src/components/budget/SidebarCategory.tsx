@@ -101,10 +101,10 @@ export function SidebarCategory({
               } else if (type === 'delete') {
                 onDelete(category.id);
               } else if (type === 'toggle-visibility') {
-                if (categoryGroup.hidden && category.hidden) {
+                onSave({ ...category, hidden: !category.hidden });
+                if (categoryGroup.hidden) {
                   onSaveGroup({ ...categoryGroup, hidden: false });
                 }
-                onSave({ ...category, hidden: !category.hidden });
               }
               setMenuOpen(false);
             }}
